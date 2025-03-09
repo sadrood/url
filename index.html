@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企业级钓鱼链接防护系统</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide-icons@0.244.0/dist/umd/lucide-icons.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/lucide-icons@0.244.0/dist/umd/lucide-icons.min.js"></script>
+    <script>
+        window.addEventListener("wheel", (e)=> {
+            const isPinching = e.ctrlKey
+            if(isPinching) e.preventDefault()
+        }, { passive: false })
+    </script>
+</head>
+<body class="bg-[#f9f9f9] text-[#111] dark:bg-[#111] dark:text-[#f9f9f9] min-h-screen font-sans">
+    <div class="container mx-auto px-4 py-8 max-w-5xl">
+        <header class="mb-10">
+            <div class="flex items-center justify-between border-b border-gray-200 dark:border-gray-800 pb-6">
+                <div class="flex items-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600">
+                        <path d="M7 10v4h10v-4"></path>
+                        <path d="M5 18h14"></path>
+                        <path d="M12 4v14"></path>
+                        <path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"></path>
+                    </svg>
+                    <h1 class="text-2xl font-medium">企业级钓鱼链接防护系统</h1>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2 text-sm">
+                        <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                        <span>系统运行正常</span>
+                    </div>
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="4"></circle>
+                            <path d="M12 2v2"></path>
+                            <path d="M12 20v2"></path>
+                            <path d="M4.93 4.93l1.41 1.41"></path>
+                            <path d="M17.66 17.66l1.41 1.41"></path>
+                            <path d="M2 12h2"></path>
+                            <path d="M20 12h2"></path>
+                            <path d="M6.34 17.66l-1.41 1.41"></path>
+                            <path d="M19.07 4.93l-1.41 1.41"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="grid grid-cols-1 md:grid-cols-5 gap-8">
+            <div class="md:col-span-3">
+                <section class="bg-white dark:bg-[#1a1a1a] rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-800 mb-8">
+                    <h2 class="text-xl font-medium mb-4 flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="20" height="14" x="2" y="5" rx="2"></rect>
+                            <line x1="2" x2="22" y1="10" y2="10"></line>
+                        </svg>
+                        员工链接访问模拟
+                    </h2>
+                    <div class="mt-4">
+                        <div class="flex flex-col">
+                            <div class="relative">
+                                <input type="text" id="url-input" placeholder="输入要访问的URL (例如: https://example.com)" 
+                                    class="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-[#222] text-gray-800 dark:text-gray-200" />
+                                <button id="submit-url" class="absolute right-2 top-1/2 transform -translate-y-1/2 px-4 py-1.5 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                                    访问
+                                </button>
+                            </div>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">输入URL后点击访问按钮，系统将会进行安全性分析</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="bg-white dark:bg-[#1a1a1a] rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-800">
+                    <h2 class="text-xl font-medium mb-4 flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+                            <polyline points="16 7 22 7 22 13"></polyline>
+                        </svg>
+                        实时检测结果
+                    </h2>
+                    <div id="result-container" class="mt-4 min-h-[200px] border border-gray-100 dark:border-gray-800 rounded-lg p-4 flex items-center justify-center">
+                        <p class="text-gray-500 dark:text-gray-400 text-center font-geist-mono">等待URL输入...</p>
+                    </div>
+                </section>
+            </div>
+
+            <div class="md:col-span-2">
+                <section class="bg-white dark:bg-[#1a1a1a] rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-800 mb-8">
+                    <h2 class="text-xl font-medium mb-4 flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                        安全工程师审核控制台
+                    </h2>
+                    <div class="mt-4">
+                        <div id="engineer-console" class="p-4 border border-gray-100 dark:border-gray-800 rounded-lg min-h-[120px] flex flex-col items-center justify-center">
+                            <p class="text-gray-500 dark:text-gray-400 text-center font-geist-mono">无待审核的URL</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-white dark:bg-[#1a1a1a] rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-800">
+                    <h2 class="text-xl font-medium mb-4 flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" x2="12" y1="8" y2="16"></line>
+                            <line x1="8" x2="16" y1="12" y2="12"></line>
+                        </svg>
+                        数据库管理
+                    </h2>
+                    <div class="mt-4 space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <button id="add-phishing-btn" class="flex items-center justify-center gap-2 px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-red-500">
+                                    <path d="M18 2h4v4"></path>
+                                    <path d="M22 2 12 12"></path>
+                                    <path d="M22 16v4h-4"></path>
+                                    <path d="M18 22 2 6"></path>
+                                    <path d="M6 18H2v-4"></path>
+                                    <path d="M2 18l16-16"></path>
+                                </svg>
+                                添加钓鱼URL
+                            </button>
+                            <button id="add-whitelist-btn" class="flex items-center justify-center gap-2 px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500">
+                                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                                    <path d="m9 12 2 2 4-4"></path>
+                                </svg>
+                                添加白名单URL
+                            </button>
+                        </div>
+                        
+                        <div class="border border-gray-100 dark:border-gray-800 rounded-lg overflow-hidden">
+                            <div class="flex border-b border-gray-100 dark:border-gray-800">
+                                <button id="tab-phishing" class="tab-btn active px-4 py-2 flex-1 text-center transition-colors">钓鱼链接库</button>
+                                <button id="tab-whitelist" class="tab-btn px-4 py-2 flex-1 text-center transition-colors">白名单链接库</button>
+                            </div>
+                            <div id="tab-content-phishing" class="tab-content p-4 max-h-[200px] overflow-y-auto">
+                                <ul id="phishing-list" class="space-y-2 text-sm">
+                                    <li class="flex justify-between items-center py-1 px-2 rounded hover:bg-gray-50 dark:hover:bg-gray-800">
+                                        <span class="truncate">phishing-site.com</span>
+                                        <button class="delete-url text-red-500 hover:text-red-600">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M3 6h18"></path>
+                                                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                                                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                                            </svg>
+                                        </button>
+                                    </li>
+                                    <li class="flex justify-between items-center py-1 px-2 rounded hover:bg-gray-50 dark:hover:bg-gray-800">
+                                        <span class="truncate">fake-bank.net</span>
+                                        <button class="delete-url text-red-500 hover:text-red-600">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M3 6h18"></path>
+                                                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                                                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                                            </svg>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div id="tab-content-whitelist" class="tab-content p-4 max-h-[200px] overflow-y-auto hidden">
+                                <ul id="whitelist-list" class="space-y-2 text-sm">
+                                    <li class="flex justify-between items-center py-1 px-2 rounded hover:bg-gray-50 dark:hover:bg-gray-800">
+                                        <span class="truncate">google.com</span>
+                                        <button class="delete-url text-red-500 hover:text-red-600">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M3 6h18"></path>
+                                                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                                                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                                            </svg>
+                                        </button>
+                                    </li>
+                                    <li class="flex justify-between items-center py-1 px-2 rounded hover:bg-gray-50 dark:hover:bg-gray-800">
+                                        <span class="truncate">microsoft.com</span>
+                                        <button class="delete-url text-red-500 hover:text-red-600">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M3 6h18"></path>
+                                                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                                                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                                            </svg>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Modals -->
+        <div id="add-url-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+            <div class="bg-white dark:bg-[#1a1a1a] rounded-xl p-6 max-w-md w-full">
+                <h3 class="text-xl font-medium mb-4" id="modal-title">添加URL</h3>
+                <input type="text" id="new-url-input" placeholder="输入URL (例如: example.com)" 
+                    class="w-full px-4 py-3 border border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4 bg-white dark:bg-[#222] text-gray-800 dark:text-gray-200" />
+                <div class="flex justify-end gap-2">
+                    <button id="modal-cancel" class="px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800">取消</button>
+                    <button id="modal-confirm" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="urlDatabase.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
